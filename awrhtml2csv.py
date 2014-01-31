@@ -3,7 +3,8 @@
 # Create CSV from AWR html reports
 #
 # Supported Versions
-#   11.2.0.1 - 11.2.0.4
+#   11.2.0.3 RAC
+#   11.2.0.4 RAC
 #
 # Note
 #   searches for <table summary=XXXX> and converts <th><td> into csv.

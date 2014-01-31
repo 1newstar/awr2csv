@@ -3,7 +3,8 @@
 # Create CSV from AWR text reports
 #
 # Supported Versions
-#   11.2.0.1 - 11.2.0.4
+#   11.2.0.3 RAC
+#   11.2.0.4 RAC
 #
 # Note
 #   extracts values specified with "===" sequence.
