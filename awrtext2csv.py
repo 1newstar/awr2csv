@@ -1,4 +1,4 @@
-#/usr/bin/env python
+#!/usr/bin/env python
 #
 # Create CSV from AWR text reports
 #
