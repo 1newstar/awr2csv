@@ -1,4 +1,3 @@
 awr2csv
 =======
-
-convert Oracle AWR reports into CSV
+AWR text/html reports -> csv converter
