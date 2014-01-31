@@ -1,3 +1,3 @@
 awr2csv
 =======
-AWR text/html reports -> csv converter
+AWR text/html reports to csv converter
