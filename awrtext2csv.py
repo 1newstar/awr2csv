@@ -155,7 +155,7 @@ for filename in filelist:
                 b_data = False
                 l_data = []
             ##### begin data
-            elif line.startswith('---'):
+            elif line.startswith('~~~'):
                 b_data = True
             ##### extract data
             elif b_data:
