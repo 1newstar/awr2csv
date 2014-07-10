@@ -1,5 +1,3 @@
 *.py[cod]
-debug
-test.*
 *.csv
 
