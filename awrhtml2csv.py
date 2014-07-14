@@ -41,6 +41,7 @@ t['This table displays information about global cache'] = ('load_profile_g.csv' 
 t['This table displays global cache efficiency percen'] = ('efficiency_g.csv'     , 'Name,Value')
 #####################################################################################################
 
+import codecs
 import glob
 import os
 import re
@@ -131,7 +132,7 @@ if __name__ == '__main__':
     output = parse(filelist)
     for csvname in output:
         print('  Created: ' + csvname)
-        f = open(csvname, 'wb')
+        f = codecs.open(csvname, 'w', encoding='utf-8')
         for line in output[csvname]:
-            f.write(line.encode('UTF-8') + '\n')
+            f.write(line + '\n')
         f.close()
