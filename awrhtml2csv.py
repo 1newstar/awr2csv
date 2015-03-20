@@ -4,6 +4,7 @@
 #
 # Tested Versions
 #   11.2.0.4 RAC
+#   12.1.0.2 RAC
 #
 # Note
 #   searches for <table summary=XXXX> and converts <th><td> into csv.
@@ -39,6 +40,7 @@ t['This table displays top segments by CR blocks rece'] = ('seg_cr_rcvd.csv'    
 t['This table displays top segments by current blocks'] = ('seg_current_rcvd.csv' , '')
 t['This table displays information about global cache'] = ('load_profile_g.csv'   , 'Name,Per Second,Per Transaction')
 t['This table displays global cache efficiency percen'] = ('efficiency_g.csv'     , 'Name,Value')
+t['This table displays name and value of init.ora par'] = ('parameters.csv'       , '')
 #####################################################################################################
 
 import codecs
