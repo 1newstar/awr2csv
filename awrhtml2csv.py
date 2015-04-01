@@ -15,6 +15,7 @@
 #  01234567890123456789012345678901234567890123456789 => first 50 chars only
 t = {}
 t['This table displays load profile']                   = ('load_profile.csv'     , 'Name,Per Second,Per Transaction,Per Exec,Per Call')
+t['This table displays instance efficiency percentage'] = ('inst_efficiency.csv'  , 'Name1,Value1,Name2,Value2')
 t['Top 5 Timed Foreground Events']                      = ('events_topn.csv'      , '')  # -11.2.0.3
 t['This table displays top 10 wait events by total wa'] = ('events_topn.csv'      , '')  # 11.2.0.4 only
 t['This table displays Foreground Wait Events and the'] = ('events_foreground.csv', '')

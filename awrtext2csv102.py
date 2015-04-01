@@ -12,8 +12,9 @@
 #
 ######################################################################################################
 t = {}
-t['Events_TopN']     = ('events_topn.csv', 'Event,Waits,Time(s),Avg Wait(ms),% Total Call Time,Wait Class', '============================== ============ =========== ====== ====== ==========')
 t['Load Profile']    = ('load_profile.csv', 'Name,Per Second,Per Transaction', '===========================        ===============       ===============')
+t['Buffer_Hit']      = ('buffer_hit.csv', 'Buffer Hit %', '                             =======')
+t['Events_TopN']     = ('events_topn.csv', 'Event,Waits,Time(s),Avg Wait(ms),% Total Call Time,Wait Class', '============================== ============ =========== ====== ====== ==========')
 t['Inst_Stats']      = ('inst_stats.csv', 'Statistic,Total,per Second,per Trans', '================================ ================== ============== =============')
 t['PGA_Aggr']        = ('pga_aggr_stats.csv', 'B or E,PGA Aggr Target(M),Auto PGA Target(M),PGA Mem Alloc(M),W/A PGA Used(M),%PGA W/A Mem,%Auto W/A Mem,%Man W/A Mem,Global Mem Bound(K)', '= ========== ========== ========== ========== ====== ====== ====== ==========')
 t['GlobalLP']        = ('load_profile_g.csv', 'Name,Per Second,Per Transaction', '==============================        ===============       ===============')
@@ -22,7 +23,7 @@ t['SQL_Elapsed']     = ('sql_elapsed.csv', 'Elapsed Time (s),CPU Time (s),Execut
 t['SQL_CPU']         = ('sql_cpu.csv', 'CPU Time (s),Elapsed Time (s),Executions,CPU per Exec (s),%Total,SQL Id,SQL Module', '========== ========== ============ =========== ======= =============')
 t['SQL_Gets']        = ('sql_gets.csv', 'Buffer Gets,Executions,Gets per Exec,%Total,CPU Time (s),Elapsed Time (s),SQL Id,SQL Module', '============== ============ ============ ====== ======== ========= =============')
 t['SQL_Reads']       = ('sql_reads.csv', 'Physical Reads,Executions,Reads per Exec,%Total,CPU Time (s),Elapsed Time (s),SQL Id,SQL Module', '============== =========== ============= ====== ======== ========= =============')
-t['SQL_Cluster']       = ('sql_cluster.csv', 'Cluster Wait Time (s),CWT % of Elapsed Time,Elapsed Time (s),CPU Time (s),Executions,SQL Id,SQL Module', '============ =========== =========== =========== ============== =============')
+t['SQL_Cluster']     = ('sql_cluster.csv', 'Cluster Wait Time (s),CWT % of Elapsed Time,Elapsed Time (s),CPU Time (s),Executions,SQL Id,SQL Module', '============ =========== =========== =========== ============== =============')
 
 #####################################################################################################
 
@@ -137,6 +138,24 @@ def parse(filelist):
                     l_data = line2list(line, mask)
                     output[csvname].append(d_base + ','.join(l_data))
             
+            ##### Instance Efficiency Percentages
+            #
+            #                              =======
+            # Instance Efficiency Percentages (Target 100%)
+            # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            #             Buffer Nowait %:  100.00       Redo NoWait %:  100.00
+            #             Buffer  Hit   %:   48.43    In-memory Sort %:  100.00
+            #             Library Hit   %:   97.00        Soft Parse %:   94.66
+            #          Execute to Parse %:   78.61         Latch Hit %:   99.99
+            # Parse CPU to Parse Elapsd %:   26.97     % Non-Parse CPU:   97.16
+            #
+            elif line.startswith('            Buffer  Hit   %'):
+                section = 'Buffer_Hit'
+            elif section in ['Buffer_Hit']:
+                l_data = line2list(line, mask)
+                output[csvname].append(d_base + ','.join(l_data))
+                section = ''
+
             ##### Top N Events
             # 
             # ============================== ============ =========== ====== ====== ==========
@@ -346,7 +365,7 @@ def parse(filelist):
                 elif b_data:
                     l_data = line2list(line, mask)
                     output[csvname].append(d_base + ','.join(l_data))
-    
+
     ##### return output
     return output
 

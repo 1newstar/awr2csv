@@ -11,6 +11,7 @@
 ######################################################################################################
 t = {}
 t['Load Profile']    = ('load_profile.csv', 'Name,Per Second,Per Transaction', '=======================    ===============   ===============')
+t['Buffer_Hit']      = ('buffer_hit.csv', 'Buffer Hit %', '                             =======')
 t['Events_TopN']     = ('events_topn.csv', 'Event,Waits,Total Wait Time (sec),Wait Avg(ms),% DB time,Wait Class', '============================== ============ ==== ======= ====== ==========')
 t['Events_FG']       = ('events_foreground.csv', 'Event,Waits,%Time -outs,Total Wait Time (s),Avg wait (ms),Waits /txn,% DB time', '========================== ============ ===== ========== ======= ======== ======')
 t['Events_BG']       = ('events_background.csv', 'Event,Waits,%Time -outs,Total Wait Time (s),Avg wait (ms),Waits /txn,% bg time', '========================== ============ ===== ========== ======= ======== ======')
@@ -147,6 +148,23 @@ def parse(filelist):
                 elif b_data:
                     l_data = line2list(line, mask)
                     output[csvname].append(d_base + ','.join(l_data))
+            
+            ##### Instance Efficiency Percentages
+            #
+            #                              =======
+            # Instance Efficiency Percentages (Target 100%)
+            # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            #             Buffer Nowait %:  100.00       Redo NoWait %:  100.00
+            #             Buffer  Hit   %:   98.74    In-memory Sort %:  100.00
+            #             Library Hit   %:   85.76        Soft Parse %:   81.19
+            #          Execute to Parse %:   64.89         Latch Hit %:  100.00
+            # Parse CPU to Parse Elapsd %:   46.37     % Non-Parse CPU: -291.55
+            elif line.startswith('            Buffer  Hit   %'):
+                section = 'Buffer_Hit'
+            elif section in ['Buffer_Hit']:
+                l_data = line2list(line, mask)
+                output[csvname].append(d_base + ','.join(l_data))
+                section = ''
             
             ##### Top N Events
             # 
